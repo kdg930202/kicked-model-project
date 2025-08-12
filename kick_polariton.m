@@ -157,25 +157,25 @@ end
 
 %%
 %mean value of x wavepacket center in time
-figure;
-plot(tt,abs(x_mean_c));
-hold on;
-plot(tt,abs(x_mean_x))
-
-%mean value of momentum in time
-figure;
-plot(tt,abs(p_mean_c));
-hold on;
-plot(tt,abs(p_mean_x))
-
-% plot(tt,pop_c);
+% figure;
+% plot(tt,abs(x_mean_c));
 % hold on;
-% plot(tt,pop_x)
-
-figure;
-scatter(abs(x_mean_c), abs(p_mean_c))
-title("phase map for photon")
-
-figure;
-scatter(abs(x_mean_x), abs(p_mean_x))
-title("phase map for exciton")
+% plot(tt,abs(x_mean_x))
+% 
+% %mean value of momentum in time
+% figure;
+% plot(tt,abs(p_mean_c));
+% hold on;
+% plot(tt,abs(p_mean_x))
+% 
+% % plot(tt,pop_c);
+% % hold on;
+% % plot(tt,pop_x)
+% 
+% figure;
+% scatter(abs(x_mean_c), abs(p_mean_c))
+% title("phase map for photon")
+% 
+% figure;
+% scatter(abs(x_mean_x), abs(p_mean_x))
+% title("phase map for exciton")
