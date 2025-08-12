@@ -136,6 +136,32 @@ ff=AA*exp(-(x.^2)/(Wpuls^2)).*exp(1i*kx_pulse*x);
 kk=1;
 
 
+for i = 1:length(kx)
+    % kc = k(i);
+    
+    % Photon dispersion
+    omegaC = omegaC0 + hbar * kx(i)^2 / (2 * mC);  % ω_C(k) in rad/s
+    
+    % Hamiltonian matrix (complex due to decay)
+    H = [omegaC - 1i*gammaC,  OmegaR;
+         OmegaR,             omegaX - 1i*gammaX];
+     
+    % Eigenvalue decomposition
+    [V, D] = eig(H);
+    
+    % Extract eigenvalues
+    omega_vals = diag(D);
+    
+    % Sort by real part (lower and upper polaritons)
+    [~, idx] = sort(real(omega_vals));
+    omega_minus(i) = omega_vals(idx(1));
+    omega_plus(i) = omega_vals(idx(2));
+    
+    % Corresponding eigenvectors
+    v_minus(:,i) = V(:, idx(1)) / norm(V(:, idx(1)));
+    v_plus(:,i) = V(:, idx(2)) / norm(V(:, idx(2)));
+end
+
 % myfig = figure();
 % hold on
 % fig1 = figure('Position', [100, 100, 834, 527]);
