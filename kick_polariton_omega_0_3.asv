@@ -74,33 +74,27 @@ figure()
 subplot(2,1,1)
 plot(tt,abs_psiC)
 
-fs = 1/(tt(2)-tt(1));                   % Sampling frequency in Hz
+fs = 100;                   % Sampling frequency in Hz
 n = length(abs_psiC);
 Y = fft(abs_psiC);
 f_axis = (0:n-1)*(fs/n);     % Frequency axis
 magY = abs(Y)/n;             % Magnitude of FFT
-half_n = floor(n/2);
-f_plot = f_axis(1:half_n);
-magY_plot = 2*magY(1:half_n);   % Multiply by 2 to conserve energy
 subplot(2,1,2)
-plot(f_plot,magY_plot)
+plot(f_axis,magY)
 
 
 abs_psiC_V_0 = abs(psiC_x0_V_0).^2;
 figure()
 subplot(2,1,1)
-plot(tt,abs_psiC_V_0)
+plot(tt,abs_psiC)
 
-
+% fs = 100;                   % Sampling frequency in Hz
 n_V_0 = length(abs_psiC_V_0);
 Y_V_0 = fft(abs_psiC_V_0);
-f_axis_V_0 = (0:n-1)*(fs/n_V_0);     % Frequency axis
-magY_V_0 = abs(Y_V_0)/n_V_0;             % Magnitude of FFT
-half_n_V_0 = floor(n_V_0/2);
-f_plot_V_0 = f_axis(1:half_n_V_0);
-magY_plot_V_0 = 2*magY(1:half_n_V_0);   % Multiply by 2 to conserve energy
+f_axis = (0:n-1)*(fs/n);     % Frequency axis
+magY = abs(Y)/n;             % Magnitude of FFT
 subplot(2,1,2)
-plot(f_plot_V_0,magY_plot_V_0)
+plot(f_axis,magY)
 
 
 % shading interp
@@ -110,7 +104,7 @@ plot(f_plot_V_0,magY_plot_V_0)
 
 
 function [x,tt, psiC_x0, psiX_x0, psiC_t, psiX_t] = potential(V_x) 
-h=0.01;
+h=0.02;
 T=80;
 t=0:h:T;
 Nt=length(t);
