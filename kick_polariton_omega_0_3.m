@@ -3,67 +3,66 @@ clearvars;
 close all;
 %------------------Time
 
-[x,tt, psiC_x0_V_0, psiX_x0_V_0, psiC_t_0, psiX_t_0] = potential(0); 
-[x,tt, psiC_x0_V_1, psiX_x0_V_1, psiC_t_1, psiX_t_1] = potential(1); 
-[x,tt, psiC_x0_V_2, psiX_x0_V_2, psiC_t_2, psiX_t_2] = potential(10); 
+% [x,tt, psiC_x0_V_0, psiX_x0_V_0, psiC_t_0, psiX_t_0] = potential(0); 
+% [x,tt, psiC_x0_V_1, psiX_x0_V_1, psiC_t_1, psiX_t_1] = potential(1); 
+[x,tt, psiC_x0_V_2, psiX_x0_V_2, psiC_t_2, psiX_t_2] = potential(2); 
 
-for i=1:length(tt)
-    psiC_sum_0(i) = sum(abs(psiC_t_0(i,:)).^2);
-    psiX_sum_0(i) = sum(abs(psiX_t_0(i,:)).^2);
-    
-    psiC_sum_1(i) = sum(abs(psiC_t_1(i,:)).^2);
-    psiX_sum_1(i) = sum(abs(psiX_t_1(i,:)).^2);
-end
+% for i=1:length(tt)
+%     psiC_sum_0(i) = sum(abs(psiC_t_0(i,:)).^2);
+%     psiX_sum_0(i) = sum(abs(psiX_t_0(i,:)).^2);
+% 
+%     psiC_sum_1(i) = sum(abs(psiC_t_1(i,:)).^2);
+%     psiX_sum_1(i) = sum(abs(psiX_t_1(i,:)).^2);
+% end
 %%
-figure()
-plot(tt,psiC_sum_0)
-hold on 
-plot(tt,psiX_sum_0)
-plot(tt,psiC_sum_0+psiX_sum_0,LineWidth=2,Color='k')
-xlabel('t',FontSize=20)
-ylabel('Population',FontSize=20)
-title('Vx=0',FontSize=20)
-legend(["Photon","Exciton","Photon+Exciton"],FontSize=20)
+% figure()
+% plot(tt,psiC_sum_0)
+% hold on 
+% plot(tt,psiX_sum_0)
+% plot(tt,psiC_sum_0+psiX_sum_0,LineWidth=2,Color='k')
+% xlabel('t',FontSize=20)
+% ylabel('Population',FontSize=20)
+% title('Vx=0',FontSize=20)
+% legend(["Photon","Exciton","Photon+Exciton"],FontSize=20)
 
-figure()
-plot(tt,psiC_sum_1)
-hold on 
-plot(tt,psiX_sum_1)
-plot(tt,psiC_sum_1+psiX_sum_1,LineWidth=2,Color='k')
-xlabel('t',FontSize=20)
-ylabel('Population',FontSize=20)
-title('Vx=1',FontSize=20)
-legend(["Photon","Exciton","Photon+Exciton"],FontSize=20)
+% figure()
+% plot(tt,psiC_sum_1)
+% hold on 
+% plot(tt,psiX_sum_1)
+% plot(tt,psiC_sum_1+psiX_sum_1,LineWidth=2,Color='k')
+% xlabel('t',FontSize=20)
+% ylabel('Population',FontSize=20)
+% title('Vx=1',FontSize=20)
+% legend(["Photon","Exciton","Photon+Exciton"],FontSize=20)
 
 %%
+% figure()
+% plot(tt,abs(psiC_x0_V_0).^2)
+% hold on
+% plot(tt,abs(psiC_x0_V_1).^2)
+% plot(tt,abs(psiC_x0_V_2).^2)
+% legend(["V=0","V=1","V=2"])
+% title("|\Psi_C(x=0,t)|^2",FontSize=20)
 
-figure()
-plot(tt,abs(psiC_x0_V_0).^2)
-hold on
-plot(tt,abs(psiC_x0_V_1).^2)
-plot(tt,abs(psiC_x0_V_2).^2)
-legend(["V=0","V=1","V=2"])
-title("|\Psi_C(x=0,t)|^2",FontSize=20)
 
-
-figure()
-plot(tt,abs(psiX_x0_V_0).^2)
-hold on
-plot(tt,abs(psiX_x0_V_1).^2)
-plot(tt,abs(psiX_x0_V_2).^2)
-legend(["V=0","V=1","V=2"])
-title("|\Psi_X(x=0,t)|^2",FontSize=20)
+% figure()
+% plot(tt,abs(psiX_x0_V_0).^2)
+% hold on
+% plot(tt,abs(psiX_x0_V_1).^2)
+% plot(tt,abs(psiX_x0_V_2).^2)
+% legend(["V=0","V=1","V=2"])
+% title("|\Psi_X(x=0,t)|^2",FontSize=20)
 
 %% 
 figure()
-pcolor(x,tt,abs(psiC_t_1).^2)
+pcolor(x,tt,abs(psiC_t_2).^2)
 shading interp
 xlabel('x',FontSize=20)
 ylabel('t',FontSize=20)
 title("|\Psi_C(x,t)|^2",FontSize=20)
 
 figure()
-pcolor(x,tt,abs(psiX_t_1).^2)
+pcolor(x,tt,abs(psiX_t_2).^2)
 shading interp
 xlabel('x',FontSize=20)
 ylabel('t',FontSize=20)
@@ -107,14 +106,16 @@ E_x=0;
 gamma_c=0;
 gamma_x=0;
 k=0.3;
+% k=1;
 Omega=5;%3
 g_x=0;
 % V_x=1;
 alpha_c=0.5;%hbar/2m
 %-----------------------Potential
 for i=1:length(x)
-        V(i)=V_x*cos(k*x(i));
+        V(i)=(V_x*cos(k*(x(i)-pi/k)) + V_x)/2;
 end
+
 %------------------------Main
 %---initial condition---
 % psitC=exp(-(x+6).^2/4^2).*exp(1i*2*x);%zeros(1,N);
@@ -136,31 +137,11 @@ ff=AA*exp(-(x.^2)/(Wpuls^2)).*exp(1i*kx_pulse*x);
 kk=1;
 
 
-for i = 1:length(kx)
-    % kc = k(i);
-    
-    % Photon dispersion
-    omegaC = omegaC0 + hbar * kx(i)^2 / (2 * mC);  % ω_C(k) in rad/s
-    
-    % Hamiltonian matrix (complex due to decay)
-    H = [omegaC - 1i*gammaC,  OmegaR;
-         OmegaR,             omegaX - 1i*gammaX];
-     
-    % Eigenvalue decomposition
-    [V, D] = eig(H);
-    
-    % Extract eigenvalues
-    omega_vals = diag(D);
-    
-    % Sort by real part (lower and upper polaritons)
-    [~, idx] = sort(real(omega_vals));
-    omega_minus(i) = omega_vals(idx(1));
-    omega_plus(i) = omega_vals(idx(2));
-    
-    % Corresponding eigenvectors
-    v_minus(:,i) = V(:, idx(1)) / norm(V(:, idx(1)));
-    v_plus(:,i) = V(:, idx(2)) / norm(V(:, idx(2)));
-end
+figure()
+plot(x,V)
+hold on
+plot(x,ff)
+
 
 % myfig = figure();
 % hold on
