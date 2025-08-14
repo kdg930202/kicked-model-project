@@ -69,38 +69,12 @@ ylabel('t',FontSize=20)
 title("|\Psi_X(x,t)|^2",FontSize=20)
 
 
-abs_psiC = abs(psiC_x0_V_2).^2;
-figure()
-subplot(2,1,1)
-plot(tt,abs_psiC)
-
-fs = 1/(tt(2)-tt(1));                   % Sampling frequency in Hz
-n = length(abs_psiC);
-Y = fft(abs_psiC);
-f_axis = (0:n-1)*(fs/n);     % Frequency axis
-magY = abs(Y)/n;             % Magnitude of FFT
-half_n = floor(n/2);
-f_plot = f_axis(1:half_n);
-magY_plot = 2*magY(1:half_n);   % Multiply by 2 to conserve energy
-subplot(2,1,2)
-plot(f_plot,magY_plot)
+% abs_psiC = abs(psiC_x0_V_2).^2;
+% figure()
+% subplot(2,1,1)
+% plot(tt,abs_psiC)
 
 
-abs_psiC_V_0 = abs(psiC_x0_V_0).^2;
-figure()
-subplot(2,1,1)
-plot(tt,abs_psiC_V_0)
-
-
-n_V_0 = length(abs_psiC_V_0);
-Y_V_0 = fft(abs_psiC_V_0);
-f_axis_V_0 = (0:n-1)*(fs/n_V_0);     % Frequency axis
-magY_V_0 = abs(Y_V_0)/n_V_0;             % Magnitude of FFT
-half_n_V_0 = floor(n_V_0/2);
-f_plot_V_0 = f_axis(1:half_n_V_0);
-magY_plot_V_0 = 2*magY(1:half_n_V_0);   % Multiply by 2 to conserve energy
-subplot(2,1,2)
-plot(f_plot_V_0,magY_plot_V_0)
 
 
 % shading interp
@@ -126,7 +100,7 @@ Nx=length(x);
 %------------------pumping amplitude in time
 f_c=zeros(1,Nt);
 f_0=10;%The amplitude is f_0*n
-omega_0=1;%The period is 2*pi/omega_0
+omega_0=0.3;%The period is 2*pi/omega_0
 n=5;
 for i=1:n
     f_c=f_c+ 1 +f_0*cos(i*omega_0*t);
@@ -145,15 +119,16 @@ E_c=0;
 E_x=0;
 gamma_c=0;
 gamma_x=0;
-k=0.3;
-% k=1;
-Omega=5;%3
+% k=0.1;
+k=1;
+Omega=10;%3
 g_x=0;
 % V_x=1;
 alpha_c=0.5;%hbar/2m
 %-----------------------Potential
 for i=1:length(x)
-        V(i)=(V_x*cos(k*(x(i)-pi/k)) + V_x)/2;
+        % V(i)=(V_x*cos(k*(x(i)-pi/k)) + V_x)/2;
+        V(i)=V_x*cos(k*(x(i)-pi/k));
 end
 
 %------------------------Main
