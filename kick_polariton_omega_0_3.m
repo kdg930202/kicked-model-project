@@ -69,20 +69,6 @@ ylabel('t',FontSize=20)
 title("|\Psi_X(x,t)|^2",FontSize=20)
 
 
-% abs_psiC = abs(psiC_x0_V_2).^2;
-% figure()
-% subplot(2,1,1)
-% plot(tt,abs_psiC)
-
-
-
-
-% shading interp
-% xlabel('x',FontSize=20)
-% ylabel('t',FontSize=20)
-% title("|\Psi_C(x,t)|^2",FontSize=20)
-
-
 function [x,tt, psiC_x0, psiX_x0, psiC_t, psiX_t] = potential(V_x) 
 h=0.01;
 T=80;
@@ -158,21 +144,6 @@ hold on
 plot(x,ff)
 
 
-% myfig = figure();
-% hold on
-% fig1 = figure('Position', [100, 100, 834, 527]);
-% v1 = VideoWriter('psiC.avi');
-% % v.FrameRate = 1; 
-% open(v1);
-% 
-% 
-% fig2 = figure('Position', [100, 100, 834, 527]);
-% v2 = VideoWriter('psiC.avi');
-% % v.FrameRate = 1; 
-% open(v2);
-
-
-
 psiC_t = zeros(Nt-1,N);
 psix_t = zeros(Nt-1,N);
 for j=2:Nt
@@ -246,91 +217,9 @@ for j=2:Nt
     psiC_x0(j) = psitC(zero_index);
     psiX_x0(j) = psitX(zero_index);
 
-    
-    
-    % plot(x,abs(psitC).^2);
-    % % hold on
-    % title(['t = ',num2str(t(j))]);
-    % % title('ss')
-    % 
-    % F1 = getframe(fig1);
-    % writeVideo(v1,F1);    
-%{
-        %-----
-        %disp(j);
-    % if mod(j,100)==0%this part give frames for a movie
-    %     plot(x,abs(psitX).^2);
-    %     pbaspect([1 1 1]);
-    %     %view(0, 90);
-    %     % print(gcf,'-dpng',sprintf('argzc%02d.png',kk))
-    %     % close all;
-    %     kk=kk+1;
-    % 
-    %     [p_c]=gradient(psitC,dx);
-    %     [p_x]=gradient(psitX,dx);
-    % 
-    %     x_mean_c(kk)=trapz(x,conj(psiC).*x.*psiC)/trapz(x,conj(psiC).*psiC);
-    %     x_mean_x(kk)=trapz(x,conj(psiX).*x.*psiX)/trapz(x,conj(psiX).*psiX);
-    % 
-    %     p_mean_c(kk)=-1i*trapz(x,conj(psiC).*p_c)/trapz(x,conj(psiC).*psiC);
-    %     p_mean_x(kk)=-1i*trapz(x,conj(psiX).*p_x)/trapz(x,conj(psiX).*psiX);
-    % 
-    %     pop_c(kk)=trapz(x,abs(psitC).^2);
-    %     pop_x(kk)=trapz(x,abs(psitX).^2);
-    % 
-    %     
-    %     disp(kk);
-    % end
-%}
     kk=kk+1;
     tt(kk)=t(j);
 end
 
-%%
-% figure()
-% plot(tt,abs(psiC_x0).^2)
 
-
-% for j = 2:Nt
-%     plot(x,abs(psiC_t(j,:)).^2);
-%     title(['Photon, t = ',num2str(t(j))]);
-%     F1 = getframe(fig1);
-%     writeVideo(v1,F1);    
-% end
-% close(v1)
-
-% for j = 2:Nt
-%     plot(x,abs(psiX_t(j,:)).^2);
-%     title(['Exciton, t = ',num2str(t(j))]);
-%     F2 = getframe(fig2);
-%     writeVideo(v2,F2);    
-% end
-% close(v2)
-
-
-
-%%
-%mean value of x wavepacket center in time
-% figure;
-% plot(tt,abs(x_mean_c));
-% hold on;
-% plot(tt,abs(x_mean_x))
-% 
-% %mean value of momentum in time
-% figure;
-% plot(tt,abs(p_mean_c));
-% hold on;
-% plot(tt,abs(p_mean_x))
-% 
-% % plot(tt,pop_c);
-% % hold on;
-% % plot(tt,pop_x)
-% 
-% figure;
-% scatter(abs(x_mean_c), abs(p_mean_c))
-% title("phase map for photon")
-% 
-% figure;
-% scatter(abs(x_mean_x), abs(p_mean_x))
-% title("phase map for exciton")
 end
